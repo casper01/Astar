@@ -11,8 +11,8 @@ function heuristics(elt, dest) {
 }
 
 
-var cols = 25;
-var rows = 25;
+var cols = 50;
+var rows = 50;
 var wallProb = 0.4;
 var grid = new Array(cols);
 var openSet = [];
