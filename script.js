@@ -7,7 +7,7 @@ function removeFromArray(arr, elt) {
 }
 
 function heuristics(elt, dest) {
-    return dist(elt.i*w, elt.j*h, dest.i*w, dest.j*h);
+    return dist(elt.i * w, elt.j * h, dest.i * w, dest.j * h);
 }
 
 
@@ -34,7 +34,7 @@ function Spot(i, j) {
     this.show = function (col) {
         fill(col);
         noStroke();
-        rect(this.i * w, this.j * h, w - 1, h - 1);
+        ellipse(this.i * w + w / 2, this.j * h + h / 2, w - 1, h - 1);
     }
 
     this.addNeighbors = function (grid) {
@@ -81,7 +81,7 @@ function setup() {
     for (var i = 0; i < cols; i++) {
         for (var j = 0; j < rows; j++) {
             grid[i][j] = new Spot(i, j);
-            
+
             if (random(1) < wallProb) {
                 grid[i][j].wall = true;
             }
@@ -101,7 +101,7 @@ function setup() {
 }
 
 function draw() {
-    background(0);
+    background(255);
 
     if (openSet.length > 0) {
         var winner = 0;
@@ -155,29 +155,35 @@ function draw() {
 
     for (var i = 0; i < cols; i++) {
         for (var j = 0; j < rows; j++) {
-                grid[i][j].show(color(255));
+            grid[i][j].show(color(255));
         }
     }
 
-    for (var i = 0; i < closedSet.length; i++) {
-        closedSet[i].show(color(255, 0, 0));
-    }
+    // for (var i = 0; i < closedSet.length; i++) {
+    //     closedSet[i].show(color(255, 0, 0));
+    // }
 
-    for (var i = 0; i < openSet.length; i++) {
-        openSet[i].show(color(0, 255, 0));
-    }
+    // for (var i = 0; i < openSet.length; i++) {
+    //     openSet[i].show(color(0, 255, 0));
+    // }
 
     for (var i = 0; i < cols; i++) {
         for (var j = 0; j < rows; j++) {
-                if (grid[i][j].wall) {
-                    grid[i][j].show(color(0));
-                }
+            if (grid[i][j].wall) {
+                grid[i][j].show(color(0));
+            }
         }
     }
 
+    noFill();
+    strokeWeight(4);
+    stroke(0, 0, 255);
+    beginShape();
     var tempEl = current;
     while (tempEl != undefined) {
-        tempEl.show(color(0, 0, 255));
+        vertex(tempEl.i * w + w / 2, tempEl.j * h + h / 2);
+        // tempEl.show(color(0, 0, 255));
         tempEl = tempEl.prev;
     }
+    endShape();
 }
