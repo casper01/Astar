@@ -13,7 +13,7 @@ function heuristics(elt, dest) {
 
 var cols = 25;
 var rows = 25;
-var wallProb = 0.3;
+var wallProb = 0.4;
 var grid = new Array(cols);
 var openSet = [];
 var closedSet = [];
