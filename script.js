@@ -7,7 +7,7 @@ function removeFromArray(arr, elt) {
 }
 
 function heuristics(elt, dest) {
-    return dist(elt.i, elt.j, dest.i, dest.j);
+    return dist(elt.i*w, elt.j*h, dest.i*w, dest.j*h);
 }
 
 
@@ -133,7 +133,7 @@ function draw() {
 
             if (!openSet.includes(neighbor)) {
                 openSet.push(neighbor);
-                neighbor.y = heuristics(neighbor, end);
+                neighbor.h = heuristics(neighbor, end);
                 tempIsBetter = true;
             }
             else if (tempG < neighbor.g) {
