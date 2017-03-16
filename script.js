@@ -7,12 +7,23 @@ function removeFromArray(arr, elt) {
 }
 
 function heuristics(elt, dest) {
-    return dist(elt.i * w, elt.j * h, dest.i * w, dest.j * h);
+    return dist(elt.i, elt.j, dest.i, dest.j);
+    // return 0;    // Dijkstra
+}
+
+function getMinIndex(set) {
+    var winner = 0;
+    for (var i = 0; i < openSet.length; i++) {
+        if (openSet[i].f < openSet[winner].f) {
+            winner = i;
+        }
+    }
+    return winner;
 }
 
 
-var cols = 50;
-var rows = 50;
+var cols = 70;
+var rows = 70;
 var wallProb = 0.4;
 var grid = new Array(cols);
 var openSet = [];
@@ -69,7 +80,7 @@ function Spot(i, j) {
 }
 
 function setup() {
-    createCanvas(600, 400);
+    createCanvas(800, 600);
     w = width / cols;
     h = height / rows;
 
@@ -101,15 +112,10 @@ function setup() {
 }
 
 function draw() {
-    background(255);
+    background(240);
 
     if (openSet.length > 0) {
-        var winner = 0;
-        for (var i = 0; i < openSet.length; i++) {
-            if (openSet[i].f < openSet[winner].f) {
-                winner = i;
-            }
-        }
+        var winner = getMinIndex(openSet);
         var current = openSet[winner];
 
         if (current === end) {
@@ -153,19 +159,13 @@ function draw() {
         noLoop();
     }
 
-    for (var i = 0; i < cols; i++) {
-        for (var j = 0; j < rows; j++) {
-            grid[i][j].show(color(255));
-        }
+    for (var i = 0; i < closedSet.length; i++) {
+        closedSet[i].show(color(255, 0, 0, 100));
     }
 
-    // for (var i = 0; i < closedSet.length; i++) {
-    //     closedSet[i].show(color(255, 0, 0));
-    // }
-
-    // for (var i = 0; i < openSet.length; i++) {
-    //     openSet[i].show(color(0, 255, 0));
-    // }
+    for (var i = 0; i < openSet.length; i++) {
+        openSet[i].show(color(0, 255, 0, 100));
+    }
 
     for (var i = 0; i < cols; i++) {
         for (var j = 0; j < rows; j++) {
